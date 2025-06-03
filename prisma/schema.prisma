@@ -8,14 +8,14 @@ datasource db {
 }
 
 model account {
-  account_login              String   @id @db.VarChar(20)
-  account_trade_mode         String?  @db.VarChar(80)
+  account_login              String   @id @db.Text
+  account_trade_mode         String?  @db.Text
   account_leverage           Int?
   account_limit_orders       Int?
-  account_margin_so_mode     String?  @db.VarChar(80)
+  account_margin_so_mode     String?  @db.Text
   account_trade_allowed      Boolean?
   account_trade_expert       Boolean?
-  account_margin_mode        String?  @db.VarChar(80)
+  account_margin_mode        String?  @db.Text
   account_currency_digits    Int?
   account_fifo_close         Boolean?
   account_hedge_allowed      Boolean?
@@ -32,38 +32,38 @@ model account {
   account_assets             Decimal? @db.Decimal(15, 5)
   account_liabilities        Decimal? @db.Decimal(15, 5)
   account_commission_blocked Decimal? @db.Decimal(15, 5)
-  account_name               String?  @db.VarChar(80)
-  account_server             String?  @db.VarChar(80)
-  account_currency           String?  @db.VarChar(80)
-  account_company            String?  @db.VarChar(80)
+  account_name               String?  @db.Text
+  account_server             String?  @db.Text
+  account_currency           String?  @db.Text
+  account_company            String?  @db.Text
   symbol                     symbol[]
 }
 
 model symbol {
   id String @id @default(uuid())
-  symbol_name                  String        @db.VarChar(80)
+  symbol_name                  String        @db.Text
   symbol_subscription_delay    Boolean?
-  symbol_sector                String?       @db.VarChar(80)
-  symbol_industry              String?       @db.VarChar(80)
+  symbol_sector                String?       @db.Text
+  symbol_industry              String?       @db.Text
   symbol_custom                Boolean?
-  symbol_chart_mode            String?       @db.VarChar(80)
+  symbol_chart_mode            String?       @db.Text
   symbol_digits                Int?
   symbol_spread_float          Boolean?
   symbol_ticks_bookdepth       Int?
-  symbol_trade_calc_mode       String?       @db.VarChar(80)
-  symbol_trade_mode            String?       @db.VarChar(80)
+  symbol_trade_calc_mode       String?       @db.Text
+  symbol_trade_mode            String?       @db.Text
   symbol_trade_stops_level     Int?
   symbol_trade_freeze_level    Int?
-  symbol_trade_exemode         String?       @db.VarChar(80)
-  symbol_swap_mode             String?       @db.VarChar(80)
-  symbol_swap_rollover3days    String?       @db.VarChar(80)
+  symbol_trade_exemode         String?       @db.Text
+  symbol_swap_mode             String?       @db.Text
+  symbol_swap_rollover3days    String?       @db.Text
   symbol_margin_hedged_use_leg Boolean?
   symbol_expiration_mode       Int?
   symbol_filling_mode          Int?
   symbol_order_mode            Int?
-  symbol_order_gtc_mode        String?       @db.VarChar(80)
-  symbol_option_mode           String?       @db.VarChar(80)
-  symbol_option_right          String?       @db.VarChar(80)
+  symbol_order_gtc_mode        String?       @db.Text
+  symbol_option_mode           String?       @db.Text
+  symbol_option_right          String?       @db.Text
   symbol_point                 Decimal?      @db.Decimal(15, 5)
   symbol_trade_tick_size       Decimal?      @db.Decimal(15, 5)
   symbol_trade_contract_size   Decimal?      @db.Decimal(15, 5)
@@ -74,21 +74,21 @@ model symbol {
   symbol_margin_initial        Decimal?      @db.Decimal(15, 5)
   symbol_margin_maintenance    Decimal?      @db.Decimal(15, 5)
   symbol_margin_hedged         Decimal?      @db.Decimal(15, 5)
-  symbol_basis                 String?       @db.VarChar(80)
-  symbol_category              String?       @db.VarChar(80)
-  symbol_country               String?       @db.VarChar(80)
-  symbol_sector_name           String?       @db.VarChar(80)
-  symbol_industry_name         String?       @db.VarChar(80)
-  symbol_currency_base         String?       @db.VarChar(80)
-  symbol_currency_profit       String?       @db.VarChar(80)
-  symbol_currency_margin       String?       @db.VarChar(80)
-  symbol_bank                  String?       @db.VarChar(80)
-  symbol_description           String?       @db.VarChar(80)
-  symbol_exchange              String?       @db.VarChar(80)
-  symbol_formula               String?       @db.VarChar(80)
-  symbol_isin                  String?       @db.VarChar(80)
-  symbol_page                  String?       @db.VarChar(80)
-  symbol_path                  String?       @db.VarChar(80)
+  symbol_basis                 String?       @db.Text
+  symbol_category              String?       @db.Text
+  symbol_country               String?       @db.Text
+  symbol_sector_name           String?       @db.Text
+  symbol_industry_name         String?       @db.Text
+  symbol_currency_base         String?       @db.Text
+  symbol_currency_profit       String?       @db.Text
+  symbol_currency_margin       String?       @db.Text
+  symbol_bank                  String?       @db.Text
+  symbol_description           String?       @db.Text
+  symbol_exchange              String?       @db.Text
+  symbol_formula               String?       @db.Text
+  symbol_isin                  String?       @db.Text
+  symbol_page                  String?       @db.Text
+  symbol_path                  String?       @db.Text
   account_login                String
   account                      account       @relation(fields: [account_login], references: [account_login], onDelete: Cascade)
   symbolprice                  symbolprice[]
@@ -99,8 +99,8 @@ model symbol {
 model symbolprice {
   id String @id @default(uuid())
   symbol_time                       DateTime  @db.Timestamptz(6)
-  symbol_name                       String    @db.VarChar(80)
-  symbol_background_color           String?   @db.VarChar(80)
+  symbol_name                       String    @db.Text
+  symbol_background_color           String?   @db.Text
   symbol_exist                      Boolean?
   symbol_select                     Boolean?
   symbol_visible                    Boolean?
