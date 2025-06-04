@@ -19,19 +19,19 @@ model account {
   account_currency_digits    Int?
   account_fifo_close         Boolean?
   account_hedge_allowed      Boolean?
-  account_balance            Decimal? @db.Decimal(15, 5)
-  account_credit             Decimal? @db.Decimal(15, 5)
-  account_profit             Decimal? @db.Decimal(15, 5)
-  account_equity             Decimal? @db.Decimal(15, 5)
-  account_margin             Decimal? @db.Decimal(15, 5)
-  account_margin_free        Decimal? @db.Decimal(15, 5)
-  account_margin_so_call     Decimal? @db.Decimal(15, 5)
-  account_margin_so_so       Decimal? @db.Decimal(15, 5)
-  account_margin_initial     Decimal? @db.Decimal(15, 5)
-  account_margin_maintenance Decimal? @db.Decimal(15, 5)
-  account_assets             Decimal? @db.Decimal(15, 5)
-  account_liabilities        Decimal? @db.Decimal(15, 5)
-  account_commission_blocked Decimal? @db.Decimal(15, 5)
+  account_balance            Decimal? @db.Decimal
+  account_credit             Decimal? @db.Decimal
+  account_profit             Decimal? @db.Decimal
+  account_equity             Decimal? @db.Decimal
+  account_margin             Decimal? @db.Decimal
+  account_margin_free        Decimal? @db.Decimal
+  account_margin_so_call     Decimal? @db.Decimal
+  account_margin_so_so       Decimal? @db.Decimal
+  account_margin_initial     Decimal? @db.Decimal
+  account_margin_maintenance Decimal? @db.Decimal
+  account_assets             Decimal? @db.Decimal
+  account_liabilities        Decimal? @db.Decimal
+  account_commission_blocked Decimal? @db.Decimal
   account_name               String?  @db.Text
   account_server             String?  @db.Text
   account_currency           String?  @db.Text
@@ -40,7 +40,6 @@ model account {
 }
 
 model symbol {
-  id String @id @default(uuid())
   symbol_name                  String        @db.Text
   symbol_subscription_delay    Boolean?
   symbol_sector                String?       @db.Text
@@ -64,16 +63,16 @@ model symbol {
   symbol_order_gtc_mode        String?       @db.Text
   symbol_option_mode           String?       @db.Text
   symbol_option_right          String?       @db.Text
-  symbol_point                 Decimal?      @db.Decimal(15, 5)
-  symbol_trade_tick_size       Decimal?      @db.Decimal(15, 5)
-  symbol_trade_contract_size   Decimal?      @db.Decimal(15, 5)
-  symbol_volume_min            Decimal?      @db.Decimal(15, 5)
-  symbol_volume_max            Decimal?      @db.Decimal(15, 5)
-  symbol_volume_step           Decimal?      @db.Decimal(15, 5)
-  symbol_volume_limit          Decimal?      @db.Decimal(15, 5)
-  symbol_margin_initial        Decimal?      @db.Decimal(15, 5)
-  symbol_margin_maintenance    Decimal?      @db.Decimal(15, 5)
-  symbol_margin_hedged         Decimal?      @db.Decimal(15, 5)
+  symbol_point                 Decimal?      @db.Decimal
+  symbol_trade_tick_size       Decimal?      @db.Decimal
+  symbol_trade_contract_size   Decimal?      @db.Decimal
+  symbol_volume_min            Decimal?      @db.Decimal
+  symbol_volume_max            Decimal?      @db.Decimal
+  symbol_volume_step           Decimal?      @db.Decimal
+  symbol_volume_limit          Decimal?      @db.Decimal
+  symbol_margin_initial        Decimal?      @db.Decimal
+  symbol_margin_maintenance    Decimal?      @db.Decimal
+  symbol_margin_hedged         Decimal?      @db.Decimal
   symbol_basis                 String?       @db.Text
   symbol_category              String?       @db.Text
   symbol_country               String?       @db.Text
@@ -92,12 +91,12 @@ model symbol {
   account_login                String
   account                      account       @relation(fields: [account_login], references: [account_login], onDelete: Cascade)
   symbolprice                  symbolprice[]
-  
-  @@unique([symbol_name, account_login])
+
+  @@id([symbol_name, account_login])
 }
 
 model symbolprice {
-  id String @id @default(uuid())
+  id                                String    @id @default(uuid())
   symbol_time                       DateTime  @db.Timestamptz(6)
   symbol_name                       String    @db.Text
   symbol_background_color           String?   @db.Text
@@ -113,55 +112,55 @@ model symbolprice {
   symbol_time_msc                   DateTime? @db.Timestamptz(6)
   symbol_spread                     Int?
   symbol_expiration_time            DateTime? @db.Timestamptz(6)
-  symbol_bid                        Decimal?  @db.Decimal(15, 5)
-  symbol_bidhigh                    Decimal?  @db.Decimal(15, 5)
-  symbol_bidlow                     Decimal?  @db.Decimal(15, 5)
-  symbol_ask                        Decimal?  @db.Decimal(15, 5)
-  symbol_askhigh                    Decimal?  @db.Decimal(15, 5)
-  symbol_asklow                     Decimal?  @db.Decimal(15, 5)
-  symbol_last                       Decimal?  @db.Decimal(15, 5)
-  symbol_lasthigh                   Decimal?  @db.Decimal(15, 5)
-  symbol_lastlow                    Decimal?  @db.Decimal(15, 5)
-  symbol_volume_real                Decimal?  @db.Decimal(15, 5)
-  symbol_volumehigh_real            Decimal?  @db.Decimal(15, 5)
-  symbol_volumelow_real             Decimal?  @db.Decimal(15, 5)
-  symbol_option_strike              Decimal?  @db.Decimal(15, 5)
-  symbol_trade_tick_value           Decimal?  @db.Decimal(15, 5)
-  symbol_trade_tick_value_profit    Decimal?  @db.Decimal(15, 5)
-  symbol_trade_tick_value_loss      Decimal?  @db.Decimal(15, 5)
-  symbol_trade_accrued_interest     Decimal?  @db.Decimal(15, 5)
-  symbol_trade_face_value           Decimal?  @db.Decimal(15, 5)
-  symbol_trade_liquidity_rate       Decimal?  @db.Decimal(15, 5)
-  symbol_swap_long                  Decimal?  @db.Decimal(15, 5)
-  symbol_swap_short                 Decimal?  @db.Decimal(15, 5)
-  symbol_swap_sunday                Decimal?  @db.Decimal(15, 5)
-  symbol_swap_monday                Decimal?  @db.Decimal(15, 5)
-  symbol_swap_tuesday               Decimal?  @db.Decimal(15, 5)
-  symbol_swap_wednesday             Decimal?  @db.Decimal(15, 5)
-  symbol_swap_thursday              Decimal?  @db.Decimal(15, 5)
-  symbol_swap_friday                Decimal?  @db.Decimal(15, 5)
-  symbol_swap_saturday              Decimal?  @db.Decimal(15, 5)
-  symbol_session_volume             Decimal?  @db.Decimal(15, 5)
-  symbol_session_turnover           Decimal?  @db.Decimal(15, 5)
-  symbol_session_interest           Decimal?  @db.Decimal(15, 5)
-  symbol_session_buy_orders_volume  Decimal?  @db.Decimal(15, 5)
-  symbol_session_sell_orders_volume Decimal?  @db.Decimal(15, 5)
-  symbol_session_open               Decimal?  @db.Decimal(15, 5)
-  symbol_session_close              Decimal?  @db.Decimal(15, 5)
-  symbol_session_aw                 Decimal?  @db.Decimal(15, 5)
-  symbol_session_price_settlement   Decimal?  @db.Decimal(15, 5)
-  symbol_session_price_limit_min    Decimal?  @db.Decimal(15, 5)
-  symbol_session_price_limit_max    Decimal?  @db.Decimal(15, 5)
-  symbol_price_change               Decimal?  @db.Decimal(15, 5)
-  symbol_price_volatility           Decimal?  @db.Decimal(15, 5)
-  symbol_price_theoretical          Decimal?  @db.Decimal(15, 5)
-  symbol_price_delta                Decimal?  @db.Decimal(15, 5)
-  symbol_price_theta                Decimal?  @db.Decimal(15, 5)
-  symbol_price_gamma                Decimal?  @db.Decimal(15, 5)
-  symbol_price_vega                 Decimal?  @db.Decimal(15, 5)
-  symbol_price_rho                  Decimal?  @db.Decimal(15, 5)
-  symbol_price_omega                Decimal?  @db.Decimal(15, 5)
-  symbol_price_sensitivity          Decimal?  @db.Decimal(15, 5)
+  symbol_bid                        Decimal?  @db.Decimal
+  symbol_bidhigh                    Decimal?  @db.Decimal
+  symbol_bidlow                     Decimal?  @db.Decimal
+  symbol_ask                        Decimal?  @db.Decimal
+  symbol_askhigh                    Decimal?  @db.Decimal
+  symbol_asklow                     Decimal?  @db.Decimal
+  symbol_last                       Decimal?  @db.Decimal
+  symbol_lasthigh                   Decimal?  @db.Decimal
+  symbol_lastlow                    Decimal?  @db.Decimal
+  symbol_volume_real                Decimal?  @db.Decimal
+  symbol_volumehigh_real            Decimal?  @db.Decimal
+  symbol_volumelow_real             Decimal?  @db.Decimal
+  symbol_option_strike              Decimal?  @db.Decimal
+  symbol_trade_tick_value           Decimal?  @db.Decimal
+  symbol_trade_tick_value_profit    Decimal?  @db.Decimal
+  symbol_trade_tick_value_loss      Decimal?  @db.Decimal
+  symbol_trade_accrued_interest     Decimal?  @db.Decimal
+  symbol_trade_face_value           Decimal?  @db.Decimal
+  symbol_trade_liquidity_rate       Decimal?  @db.Decimal
+  symbol_swap_long                  Decimal?  @db.Decimal
+  symbol_swap_short                 Decimal?  @db.Decimal
+  symbol_swap_sunday                Decimal?  @db.Decimal
+  symbol_swap_monday                Decimal?  @db.Decimal
+  symbol_swap_tuesday               Decimal?  @db.Decimal
+  symbol_swap_wednesday             Decimal?  @db.Decimal
+  symbol_swap_thursday              Decimal?  @db.Decimal
+  symbol_swap_friday                Decimal?  @db.Decimal
+  symbol_swap_saturday              Decimal?  @db.Decimal
+  symbol_session_volume             Decimal?  @db.Decimal
+  symbol_session_turnover           Decimal?  @db.Decimal
+  symbol_session_interest           Decimal?  @db.Decimal
+  symbol_session_buy_orders_volume  Decimal?  @db.Decimal
+  symbol_session_sell_orders_volume Decimal?  @db.Decimal
+  symbol_session_open               Decimal?  @db.Decimal
+  symbol_session_close              Decimal?  @db.Decimal
+  symbol_session_aw                 Decimal?  @db.Decimal
+  symbol_session_price_settlement   Decimal?  @db.Decimal
+  symbol_session_price_limit_min    Decimal?  @db.Decimal
+  symbol_session_price_limit_max    Decimal?  @db.Decimal
+  symbol_price_change               Decimal?  @db.Decimal
+  symbol_price_volatility           Decimal?  @db.Decimal
+  symbol_price_theoretical          Decimal?  @db.Decimal
+  symbol_price_delta                Decimal?  @db.Decimal
+  symbol_price_theta                Decimal?  @db.Decimal
+  symbol_price_gamma                Decimal?  @db.Decimal
+  symbol_price_vega                 Decimal?  @db.Decimal
+  symbol_price_rho                  Decimal?  @db.Decimal
+  symbol_price_omega                Decimal?  @db.Decimal
+  symbol_price_sensitivity          Decimal?  @db.Decimal
   account_login                     String
   symbol                            symbol    @relation(fields: [symbol_name, account_login], references: [symbol_name, account_login], onDelete: Cascade, onUpdate: Cascade)
 }

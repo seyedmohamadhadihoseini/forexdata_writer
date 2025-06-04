@@ -2,7 +2,17 @@ import { prisma } from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-    const data: { name: string, value: string }[] = await req.json();
+    let data : { name: string, value: string }[] = [];
+    let dataText = "";
+    try{
+        dataText = await req.text();
+        dataText =dataText.replace("\\","/");
+        data= JSON.parse(dataText);
+
+    }catch(e){
+        console.log(`error in json of request .message is ${e}`);
+        console.log(dataText);
+    }
     const account_login = data.filter(x => x.name == "account_login")[0].value;
     const symbol_name = data.filter(x => x.name == "symbol_name")[0].value;
     const symbol_subscription_delay = data.filter(x => x.name == "symbol_subscription_delay")[0].value == "true";

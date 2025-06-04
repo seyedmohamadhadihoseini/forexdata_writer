@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
     const receivedData: { name: string, value: string }[] = await req.json();
     const data = ArryaToDict(receivedData);
-    const symbol_time = parseInt(data.symbol_time)*1000;
+    const symbol_time = parseInt(data.symbol_time) * 1000;
     const symbol_name = data.symbol_name;
     const symbol_background_color = data.symbol_background_color;
     const symbol_exist = data.symbol_exist == "true";
@@ -71,30 +71,34 @@ export async function POST(req: NextRequest) {
     const symbol_price_sensitivity = parseFloat(data.symbol_price_sensitivity);
     const account_login = data.account_login;
 
-    const finalData = {
-        symbol_name, symbol_time:  GetDateOrNow(symbol_time),
-        symbol_ask, symbol_askhigh, symbol_asklow, symbol_lastlow,
-        symbol_bid, symbol_bidhigh, symbol_bidlow, symbol_last, symbol_lasthigh,
-        symbol_background_color, symbol_exist, symbol_expiration_time: GetDateOrNow(symbol_expiration_time),
-        symbol_option_strike, symbol_price_change, symbol_price_delta, symbol_price_gamma,
-        symbol_price_omega, symbol_price_rho, symbol_price_sensitivity, symbol_price_theoretical,
-        symbol_price_theta, symbol_price_vega, symbol_price_volatility, symbol_select, symbol_session_aw,
-        symbol_session_buy_orders, symbol_session_buy_orders_volume, symbol_session_close, symbol_session_deals,
-        symbol_session_interest, symbol_session_open, symbol_session_price_limit_max, symbol_session_price_limit_min,
-        symbol_session_price_settlement, symbol_session_sell_orders, symbol_session_sell_orders_volume,
-        symbol_session_turnover, symbol_session_volume,
-        symbol_trade_tick_value, symbol_trade_tick_value_profit, symbol_trade_tick_value_loss, symbol_trade_accrued_interest,
-        symbol_trade_face_value,
-        symbol_trade_liquidity_rate, symbol_swap_long, symbol_swap_short, symbol_swap_sunday, symbol_swap_monday,
-        symbol_swap_tuesday, symbol_swap_wednesday, symbol_swap_thursday, symbol_swap_friday,
-        symbol_swap_saturday, symbol_volume_real, symbol_volumehigh_real,
-        symbol_volumelow_real, symbol_volume, symbol_volumehigh, symbol_volumelow,
-        symbol_time_msc: GetDateOrNow(symbol_time_msc), symbol_spread, symbol_visible, account_login: account_login
+    
+    try {
+        await prisma.symbolprice.create({
+            data: {
+                symbol_name, symbol_time: GetDateOrNow(symbol_time),
+                symbol_ask, symbol_askhigh, symbol_asklow, symbol_lastlow,
+                symbol_bid, symbol_bidhigh, symbol_bidlow, symbol_last, symbol_lasthigh,
+                symbol_background_color, symbol_exist, symbol_expiration_time: GetDateOrNow(symbol_expiration_time),
+                symbol_option_strike, symbol_price_change, symbol_price_delta, symbol_price_gamma,
+                symbol_price_omega, symbol_price_rho, symbol_price_sensitivity, symbol_price_theoretical,
+                symbol_price_theta, symbol_price_vega, symbol_price_volatility, symbol_select, symbol_session_aw,
+                symbol_session_buy_orders, symbol_session_buy_orders_volume, symbol_session_close, symbol_session_deals,
+                symbol_session_interest, symbol_session_open, symbol_session_price_limit_max, symbol_session_price_limit_min,
+                symbol_session_price_settlement, symbol_session_sell_orders, symbol_session_sell_orders_volume,
+                symbol_session_turnover, symbol_session_volume,
+                symbol_trade_tick_value, symbol_trade_tick_value_profit, symbol_trade_tick_value_loss, symbol_trade_accrued_interest,
+                symbol_trade_face_value,
+                symbol_trade_liquidity_rate, symbol_swap_long, symbol_swap_short, symbol_swap_sunday, symbol_swap_monday,
+                symbol_swap_tuesday, symbol_swap_wednesday, symbol_swap_thursday, symbol_swap_friday,
+                symbol_swap_saturday, symbol_volume_real, symbol_volumehigh_real,
+                symbol_volumelow_real, symbol_volume, symbol_volumehigh, symbol_volumelow,
+                symbol_time_msc: GetDateOrNow(symbol_time_msc), symbol_spread, symbol_visible, account_login: account_login
+            }
+        });
+    } catch (e) {
+        console.log(`error occure in symbolprice : account_login:${account_login}`);
+        console.log(e);
     }
-    await prisma.symbolprice.create({
-        data: finalData
-
-    });
 
 
     return NextResponse.json({});
