@@ -3,14 +3,14 @@ CREATE SCHEMA IF NOT EXISTS trade;
 
 -- ایجاد جدول account
 CREATE TABLE IF NOT EXISTS trade.account (
-    account_login VARCHAR(50) PRIMARY KEY,
-    account_trade_mode VARCHAR(50),
+    account_login TEXT PRIMARY KEY,
+    account_trade_mode TEXT,
     account_leverage INTEGER,
     account_limit_orders INTEGER,
-    account_margin_so_mode VARCHAR(50),
+    account_margin_so_mode TEXT,
     account_trade_allowed BOOLEAN,
     account_trade_expert BOOLEAN,
-    account_margin_mode VARCHAR(50),
+    account_margin_mode TEXT,
     account_currency_digits INTEGER,
     account_fifo_close BOOLEAN,
     account_hedge_allowed BOOLEAN,
@@ -35,37 +35,37 @@ CREATE TABLE IF NOT EXISTS trade.account (
 
 -- ایجاد جدول symbol
 CREATE TABLE IF NOT EXISTS trade.symbol (
-    symbol_name VARCHAR(50) PRIMARY KEY,
+    symbol_name TEXT PRIMARY KEY,
     symbol_subscription_delay BOOLEAN,
-    symbol_sector VARCHAR(50),
-    symbol_industry VARCHAR(50),
+    symbol_sector TEXT,
+    symbol_industry TEXT,
     symbol_custom BOOLEAN,
-    symbol_chart_mode VARCHAR(50),
+    symbol_chart_mode TEXT,
     symbol_digits INTEGER,
     symbol_spread_float BOOLEAN,
     symbol_ticks_bookdepth INTEGER,
-    symbol_trade_calc_mode VARCHAR(50),
-    symbol_trade_mode VARCHAR(50),
+    symbol_trade_calc_mode TEXT,
+    symbol_trade_mode TEXT,
     symbol_trade_stops_level INTEGER,
     symbol_trade_freeze_level INTEGER,
-    symbol_trade_exemode VARCHAR(50),
-    symbol_swap_mode VARCHAR(50),
-    symbol_swap_rollover3days VARCHAR(50),
+    symbol_trade_exemode TEXT,
+    symbol_swap_mode TEXT,
+    symbol_swap_rollover3days TEXT,
     symbol_margin_hedged_use_leg BOOLEAN,
     symbol_expiration_mode INTEGER,
     symbol_filling_mode INTEGER,
     symbol_order_mode INTEGER,
-    symbol_order_gtc_mode VARCHAR(50),
-    symbol_option_mode VARCHAR(50),
-    symbol_option_right VARCHAR(50)
+    symbol_order_gtc_mode TEXT,
+    symbol_option_mode TEXT,
+    symbol_option_right TEXT
 );
 
 -- ایجاد جدول symbolprice
 CREATE TABLE IF NOT EXISTS trade.symbolprice (
-    account_login VARCHAR(50),
-    symbol_name VARCHAR(50),
+    account_login TEXT,
+    symbol_name TEXT,
     symbol_time TIMESTAMPTZ NOT NULL,
-    symbol_background_color VARCHAR(50),
+    symbol_background_color TEXT,
     symbol_exist BOOLEAN,
     symbol_select BOOLEAN,
     symbol_visible BOOLEAN,
