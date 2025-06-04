@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
     const account_login = data.account_login;
 
     const finalData = {
-        symbol_name, symbol_time: new Date(symbol_time),
+        symbol_name, symbol_time:  GetDateOrNow(symbol_time),
         symbol_ask, symbol_askhigh, symbol_asklow, symbol_lastlow,
         symbol_bid, symbol_bidhigh, symbol_bidlow, symbol_last, symbol_lasthigh,
         symbol_background_color, symbol_exist, symbol_expiration_time: GetDateOrNow(symbol_expiration_time),
